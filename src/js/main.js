@@ -45,13 +45,13 @@ class Main extends AbstractApplication {
       sound.setBuffer(buffer)
       sound.setLoop(true)
       sound.setVolume(0.5)
-      sound.play()
+      //sound.play()
     })
   }
 
   animate () {
     if (this.player.mesh) {
-      this.player.update()
+      //this.player.update()
     }
     super.animate()
   }

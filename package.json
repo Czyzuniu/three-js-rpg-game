@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "@superguigui/wagner": "^0.1.6",
+    "cannon": "github:schteppe/cannon.js",
     "cors": "^2.8.5",
     "dat-gui": "^0.5.0",
     "express": "^4.16.4",
