@@ -35,7 +35,7 @@ export default class Terrain extends GameObject{
 
 
           this.mesh = new Mesh(  new PlaneBufferGeometry( 100, 100,32,32 ), grassTex);
-          this.mesh.scale.set(10,10,0);
+          this.mesh.scale.set(10,10,10);
           this.mesh.rotation.x = - Math.PI / 2;
           res(this.mesh)
         }
