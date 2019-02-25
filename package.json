@@ -76,6 +76,7 @@
     "three": "^0.101.1",
     "three-collada-loader-2": "^1.0.1",
     "three-fbx-loader": "^1.0.3",
+    "three-fbxloader-offical": "^1.0.0",
     "three-obj-mtl-loader": "^1.0.3",
     "three.fbo-helper": "^1.1.1",
     "webvr-polyfill": "^0.10.2",

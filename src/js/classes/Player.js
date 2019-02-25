@@ -16,7 +16,7 @@ export default class Player extends GameObject {
     this.moveBackward = false
     this.moveLeft = false
     this.moveRight = false
-    this.moveSpeed = 100
+    this.moveSpeed = 10000
     this.fallingSpeed = 400
 
     this.backgroundPosition = 4.5
@@ -35,7 +35,7 @@ export default class Player extends GameObject {
     this.velocity.x -= this.velocity.x * 10.0 * delta
     this.velocity.z -= this.velocity.z * 10.0 * delta
 
-    // Add gravity to the jump 
+    // Add gravity to the jump
     if(this.mesh.position.y > this.backgroundPosition) {
       this.velocity.y -= 9.8 * 10.0 * delta // 100.0 = mass
     } else if (this.mesh.position.y == this.backgroundPosition) {
@@ -54,7 +54,7 @@ export default class Player extends GameObject {
       this.mesh.rotateOnAxis(new Vector3(0, 1, 0), 2.5 * delta)
     }
 
-    // make jump 
+    // make jump
     if(this.canJump) {
       if (this.jump) {
         this.velocity.y += 2000 * delta // 2000 - jump force
@@ -76,7 +76,7 @@ export default class Player extends GameObject {
       this.mesh.position.y = this.backgroundPosition
       this.canJump = true
     }
-    
+
 
 
     this.prevTime = time

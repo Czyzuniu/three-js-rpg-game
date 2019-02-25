@@ -4,6 +4,7 @@ import AbstractApplication from 'views/AbstractApplication'
 import Player from './classes/Player'
 import Terrain from './classes/Terrain'
 import { AmbientLight, CubeTextureLoader, AudioListener, AudioLoader, Audio } from 'three'
+import EnvironmentObject from './classes/EnvironmentObject'
 
 let player
 
@@ -20,11 +21,10 @@ class Main extends AbstractApplication {
     player = this.player
     this.terrain = new Terrain()
 
-    const light = new AmbientLight(0x404040) // soft white light
+    const light = new AmbientLight('#ffffff') // soft white light
     this._scene.add(light)
 
     this.player.draw().then((mesh) => {
-      console.log(mesh)
       this._scene.add(mesh)
       mesh.add(this._camera)
     })
