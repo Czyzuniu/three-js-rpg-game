@@ -18,7 +18,7 @@ class AbstractApplication {
     this._renderer.setPixelRatio(window.devicePixelRatio)
     this._renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(this._renderer.domElement)
-
+    //
     // this._controls = new OrbitControls(this._camera, this._renderer.domElement)
     // // this._controls.addEventListener( 'change', render ) // add this only if there is no animation loop (requestAnimationFrame)
     // this._controls.enableDamping = true

@@ -20,6 +20,7 @@ export default class Player extends GameObject{
     this.moveLeft = false;
     this.moveRight = false;
     this.moveSpeed = 100
+    this.fallingSpeed = 200
   }
 
 
@@ -34,7 +35,7 @@ export default class Player extends GameObject{
     // Set the velocity.x and velocity.z using the calculated time delta
     this.velocity.x -= this.velocity.x * 10.0 * delta;
     this.velocity.z -= this.velocity.z * 10.0 * delta;
-    //this.velocity.y = 0
+    this.velocity.y -= this.velocity.y * 10.0 * delta;
 
 
 
@@ -47,18 +48,22 @@ export default class Player extends GameObject{
     }
 
     if (this.moveLeft ) {
-      this.mesh.rotateOnAxis(new Vector3(0,1,0), -2.5 * delta);
-    }
-
-    if (this.moveRight ) {
       this.mesh.rotateOnAxis(new Vector3(0,1,0), 2.5 * delta);
     }
 
+    if (this.moveRight ) {
+      this.mesh.rotateOnAxis(new Vector3(0,1,0), -2.5 * delta);
+    }
+
+    this.velocity.y -= this.fallingSpeed * delta;
+
     this.mesh.translateZ(this.velocity.z * delta )
     this.mesh.translateX(this.velocity.x * delta )
+    this.mesh.translateY(this.velocity.y * delta )
 
 
     this.prevTime = time;
+
 
   }
 
@@ -103,7 +108,7 @@ export default class Player extends GameObject{
         colladaLoader.load('http://localhost:3000/public/models/collada.dae', colladaModel => {
             this.mesh = colladaModel.scene.children[0]
             this.mesh.rotateX(Math.degToRad(-90))
-            this.mesh.position.y = 4.6
+            this.mesh.position.y = 100
             res(this.mesh)
         });
       })
