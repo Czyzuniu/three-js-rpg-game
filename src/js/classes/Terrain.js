@@ -26,8 +26,8 @@ export default class Terrain extends GameObject{
           texture.anisotropy = 16
           texture.wrapS = RepeatWrapping;
           texture.wrapT = RepeatWrapping;
-          texture.repeat.x = 64;
-          texture.repeat.y = 64;
+          texture.repeat.x = 16;
+          texture.repeat.y = 16;
 
           let grassTex = new MeshBasicMaterial( {
             map: texture

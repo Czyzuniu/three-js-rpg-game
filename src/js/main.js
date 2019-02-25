@@ -51,7 +51,7 @@ class Main extends AbstractApplication {
 
   animate () {
     if (this.player.mesh) {
-      //this.player.update()
+      this.player.update()
     }
     super.animate()
   }
