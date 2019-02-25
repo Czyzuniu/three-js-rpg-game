@@ -3,24 +3,22 @@ import {
   Mesh,
   MeshBasicMaterial,
   PlaneBufferGeometry,
-  RepeatWrapping, TextureLoader,
-} from "three";
+  RepeatWrapping, TextureLoader
+} from 'three'
 import EnvironmentObject from './EnvironmentObject'
+import CANNON from 'cannon'
 const ColladaLoader = require('three-collada-loader-2')
 
-
-
-
-export default class Terrain extends GameObject{
-  constructor() {
+export default class Terrain extends GameObject {
+  constructor () {
     super()
   }
 
-  draw() {
+  draw () {
     return new Promise((res) => {
       const colladaLoader = new ColladaLoader()
       colladaLoader.load('http://localhost:3000/public/models/world.dae', colladaModel => {
-          res(colladaModel.scene)
+        res(colladaModel.scene)
       })
     })
   }

@@ -1,6 +1,6 @@
 
 import {
-  Vector3, Math, Ray
+  Vector3, Math, BoxGeometry, MeshBasicMaterial, Mesh
 } from 'three'
 
 import GameObject from './GameObject'
@@ -21,7 +21,7 @@ export default class Player extends GameObject {
 
     this.backgroundPosition = 4.5
     this.canJump = true
-
+    this.physicalObject = new Mesh(new BoxGeometry(5, 10, 2), new MeshBasicMaterial({ color: 'red' }))
   }
 
   update () {
@@ -36,9 +36,9 @@ export default class Player extends GameObject {
     this.velocity.z -= this.velocity.z * 10.0 * delta
 
     // Add gravity to the jump
-    if(this.mesh.position.y > this.backgroundPosition) {
+    if (this.mesh.position.y > this.backgroundPosition) {
       this.velocity.y -= 9.8 * 10.0 * delta // 100.0 = mass
-    } else if (this.mesh.position.y == this.backgroundPosition) {
+    } else if (this.mesh.position.y === this.backgroundPosition) {
       this.velocity.y = 0
     }
 
@@ -55,7 +55,7 @@ export default class Player extends GameObject {
     }
 
     // make jump
-    if(this.canJump) {
+    if (this.canJump) {
       if (this.jump) {
         this.velocity.y += 2000 * delta // 2000 - jump force
         this.canJump = false
@@ -76,8 +76,6 @@ export default class Player extends GameObject {
       this.mesh.position.y = this.backgroundPosition
       this.canJump = true
     }
-
-
 
     this.prevTime = time
   }
@@ -128,8 +126,13 @@ export default class Player extends GameObject {
       colladaLoader.load('http://localhost:3000/public/models/collada.dae', colladaModel => {
         this.mesh = colladaModel.scene.children[0]
         this.mesh.rotateX(Math.degToRad(-90))
-        //this.mesh.position.y = 800
-        this.mesh.position.y = this.backgroundPosition
+        this.mesh.position.y = 500
+        //this.mesh.position.z += 1500
+        // this.mesh.position.y = this.backgroundPosition
+
+        this.mesh.add(this.physicalObject)
+        console.log(this.mesh)
+
         res(this.mesh)
       })
     })
