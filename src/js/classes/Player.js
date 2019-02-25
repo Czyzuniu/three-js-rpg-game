@@ -20,6 +20,7 @@ export default class Player extends GameObject {
     this.fallingSpeed = 400
 
     this.backgroundPosition = 4.5
+
   }
 
   update () {
@@ -32,7 +33,12 @@ export default class Player extends GameObject {
     // Set the velocity.x and velocity.z using the calculated time delta
     this.velocity.x -= this.velocity.x * 10.0 * delta
     this.velocity.z -= this.velocity.z * 10.0 * delta
-    //this.velocity.y -= 9.8 * 100.0 * delta // 100.0 = mass
+
+    if(this.mesh.position.y > this.backgroundPosition) {
+      this.velocity.y -= 9.8 * 10.0 * delta // 100.0 = mass
+    } else if (this.mesh.position.y == this.backgroundPosition) {
+      this.velocity.y = 0
+    }
 
     if (this.moveForward) {
       this.velocity.z -= this.moveSpeed * delta
@@ -48,7 +54,7 @@ export default class Player extends GameObject {
 
     if (this.jump) {
       this.velocity.y += 350 * delta
-      console.log(this.velocity.y)
+      //console.log(this.velocity.y)
     }
 
     if (this.moveRight) {
@@ -65,11 +71,19 @@ export default class Player extends GameObject {
     this.mesh.translateX(this.velocity.x * delta)
     this.mesh.translateY(this.velocity.y * delta)
 
-    if(this.mesh.position.y > 10) { // check position y
-      this.velocity.y -= 500 * delta 
-    } else if (this.mesh.position.y < this.backgroundPosition) {
-      this.velocity.y = 0
+
+
+    // if(this.mesh.position.y > this.mesh.position.y + 10) { // check position y
+    //   this.velocity.y -= 500 * delta 
+    // } 
+    // else 
+    console.log(this.velocity.y)
+    if(!this.jump) {
+      if (this.mesh.position.y < this.backgroundPosition) {
+        this.mesh.position.y = this.backgroundPosition
+      }
     }
+
 
     this.prevTime = time
   }
