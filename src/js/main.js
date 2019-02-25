@@ -1,40 +1,60 @@
-import {
-  BoxGeometry,
-  Mesh,
-  ShaderMaterial
-} from 'three'
+// forked from https://github.com/superguigui/Wagner/blob/master/example/index.js
+
 import AbstractApplication from 'views/AbstractApplication'
-import shaderVert from 'shaders/custom.vert'
-import shaderFrag from 'shaders/custom.frag'
-import Worker from 'workers/file.worker.js'
+import Player from './classes/Player'
+import Terrain from "./classes/Terrain";
+import {AmbientLight, CubeTextureLoader} from "three";
+
+let player
 
 class Main extends AbstractApplication {
   constructor () {
     super()
 
-    // simple webworker
-    const worker = new Worker()
+    const envMap = new CubeTextureLoader()
+      .setPath( 'http://localhost:3000/public/textures/skyboxsun25deg/')
+      .load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
+    this._scene.background = envMap;
 
-    worker.postMessage({ a: 1 })
-    worker.addEventListener('message', function (event) {
-      console.log(event)
+    this.player = new Player()
+    player = this.player
+    this.terrain = new Terrain()
+
+    const light = new AmbientLight( 0x404040 ); // soft white light
+    this._scene.add( light );
+
+    this.player.draw().then((mesh) => {
+      console.log(mesh)
+      this._scene.add(mesh)
+      mesh.add(this._camera)
     })
 
-    // const texture = new THREE.TextureLoader().load('static/textures/crate.gif')
-
-    const geometry = new BoxGeometry(200, 200, 200)
-    // const material = new THREE.MeshBasicMaterial({ map: texture })
-
-    const material2 = new ShaderMaterial({
-      vertexShader: shaderVert,
-      fragmentShader: shaderFrag
+    this.terrain.draw().then((ground) => {
+      this._scene.add(ground)
     })
-
-    this._mesh = new Mesh(geometry, material2)
-    this._scene.add(this._mesh)
 
     this.animate()
   }
+
+
+
+  animate () {
+
+    if (this.player.mesh) {
+      this.player.update()
+    }
+    super.animate()
+  }
 }
+
+
+window.addEventListener('keydown', (event) => {
+  player.move(event)
+})
+
+window.addEventListener('keyup', (event) => {
+  player.stop(event)
+})
+
 
 export default Main

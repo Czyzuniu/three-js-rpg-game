@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "server": "nodemon server.js",
     "lint": "eslint --ext .js src",
     "build": "node build/build.js"
   },
@@ -63,12 +64,18 @@
   },
   "dependencies": {
     "@superguigui/wagner": "^0.1.6",
+    "cors": "^2.8.5",
     "dat-gui": "^0.5.0",
+    "express": "^4.16.4",
     "glsl-checker": "^1.0.1",
     "glsl-noise": "0.0.0",
     "glslify-fancy-imports": "^1.0.1",
     "glslify-hex": "^2.0.1",
-    "three": "^0.100.0",
+    "nodemon": "^1.18.10",
+    "three": "^0.101.1",
+    "three-collada-loader-2": "^1.0.1",
+    "three-fbx-loader": "^1.0.3",
+    "three-obj-mtl-loader": "^1.0.3",
     "three.fbo-helper": "^1.1.1",
     "webvr-polyfill": "^0.10.2",
     "webvr-ui": "^0.10.0"
